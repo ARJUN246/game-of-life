@@ -1,0 +1,23 @@
+pipeline {
+    agent { label 'jdk-8'}
+    stages {
+        stage('vcs') {
+            steps {
+                git clone 'https://github.com/ARJUN246/game-of-life.git',
+                branch: 'master'
+                }
+        }        
+        stage('package') {
+            steps{
+                sh 'mvn package'
+            }
+        }
+        stage('postbuild') {
+            steps {
+                archiveArtifacts artifacts: '**/target/gameoflife.war',
+                                 onlyIfSuccessful: true
+                junit testResults: '**/surefire-reports/TEST-*.xml'
+            }
+        }
+    }    
+}
