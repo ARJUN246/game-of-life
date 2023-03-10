@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('vcs') {
             steps {
-                git clone: 'https://github.com/ARJUN246/game-of-life.git',
+                git url: 'https://github.com/ARJUN246/game-of-life.git',
                 branch: 'master'
             }
         }        
